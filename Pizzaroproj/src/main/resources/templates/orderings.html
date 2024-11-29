@@ -115,17 +115,15 @@
 <script src="/js/bold-and-dark.js"></script>
 <script>
 
-    // Инициализация карты
     ymaps.ready(init);
     function init() {
         const map = new ymaps.Map("map", {
-            center: [55.7558, 37.6173], // Координаты центра карты (Москва)
-            zoom: 10
+            center: [53.89616489731186, 27.553923173641653],
+            zoom: 12
         });
 
-        // Добавление метки
-        const myPlacemark = new ymaps.Placemark([55.7558, 37.6173], {
-            balloonContent: '<strong>Мы здесь!</strong><br>Адрес пиццерии'
+        const myPlacemark = new ymaps.Placemark([53.92278265290629, 27.602641322090165], {
+            balloonContent: '<strong>Мы здесь!</strong><br>Независимости, 83'
         }, {
             preset: 'islands#icon',
             iconColor: '#ED6C30'
@@ -134,9 +132,15 @@
         map.geoObjects.add(myPlacemark);
 
         fetch('/api/locations')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ошибка! Статус: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
-                data.locations.forEach(location => {
+                console.log('Полученные данные:', data);
+                data.forEach(location => {
                     const placemark = new ymaps.Placemark([location.latitude, location.longitude], {
                         balloonContent: `<strong>${location.name}</strong><br>${location.address}`
                     });
@@ -144,7 +148,9 @@
                 });
             })
             .catch(error => console.error('Ошибка загрузки меток:', error));
+
     }
+
 </script>
 </body>
 </html>
