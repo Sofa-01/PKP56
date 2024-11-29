@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Вход</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/logreg.css">
+<body style="background: white top / cover;">
+<nav th:fragment="nav" class="navbar navbar-dark navbar-expand-md sticky-top navbar-shrink py-3" id="mainNav"
+     style="background: #FFEFD5;max-height: 74px;">
+    <div class="container">
+        <img src="/img/pizzahead.png" alt="Logo">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <h1><b><span>Slide & Dice</span></b></h1>
+        </a>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mx-auto">
+            </ul>
+        </div>
+    </div>
+</nav>
+<section class="py-5">
+    <div class="container py-5">
+        <center>
+            <div class="login-block">
+                <p>Авторизация</p>
+            </div>
+            <div th:if="${param.error}" class="row">
+                <div class="col"></div>
+                <div class="col-auto">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Некорректный ввод логина или пароля!</strong>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-8">
+                    <form action="/login" method="post">
+                        <div class="row" style="margin-bottom: 2%;margin-left: 22%">
+                            <div class="coll" id="coll1">
+                                <label for="username">Логин</label>
+                                <input class="form-control" style="" type="text" name="username" placeholder="nastya22" required>
+                            </div>
+                            <div class="coll" id="coll2">
+                                <label for="username">Пароль</label>
+                                <input class="form-control" style="" type="password" name="password" placeholder="*******" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="coll">
+                                <button class="btn btn-warning" type="submit">Авторизация</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="coll"><a class="btn btn-light" role="button" href="/reg">Нет учётной записи? Зарегистрироваться</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </center>
+    </div>
+
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>Slide & Dice</p>
+    </div>
+</footer>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

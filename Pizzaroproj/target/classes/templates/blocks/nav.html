@@ -1,0 +1,26 @@
+<nav th:fragment="nav" class="navbar navbar-dark navbar-expand-md sticky-top navbar-shrink py-3" id="mainNav"
+     style="background: #FFEFD5;max-height: 74px;">
+    <div class="container">
+        <img src="/img/pizzahead.png" id="img1" alt="Logo" style="height: 80px; width: auto; margin: 20px 10px 0px 0px;
+    position: relative;">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <h1 style="color: #DDA450"><b><span>Slide & Dice</span></b></h1>
+        </a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
+                class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mx-auto">
+
+                <li th:if="${role == 'MANAGER'}" class="nav-item"><a class="nav-link" href="/apps" style="color: #F6C343; font-size: 21px;"><b>Заказы клиентов</b></a></li>
+                <li th:if="${role == 'MANAGER'}" class="nav-item"><a class="nav-link" href="/apps/my" style="color: #F6C343; font-size: 21px"><b>В процессе готовки</b></b></a></li>
+                <li th:if="${role == 'CLIENT'}" class="nav-item"><a class="nav-link" href="/orderings" style="color: #F6C343;font-size: 21px;"><b>Мои заказы</b></a></li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item"><a class="nav-link" href="/stats" style="color: #F6C343; font-size: 21px"><b>Контроль деятельности сотрудников</b></a></li>
+                <li th:if="${role == 'ADMIN'}" class="nav-item"><a class="nav-link" href="/users" style="color: #F6C343; font-size: 21px"><b>Пользователи</b></a></li>
+                <li class="nav-item"><a class="nav-link" href="/products/PIZZA" style="color: #F6C343;font-size: 21px"><b>Меню</b></a></li>
+                <li th:if="${role == 'MANAGER'}" class="nav-item"><a class="nav-link" href="/products/add" style="color: #F6C343;font-size: 21px"><b>Добавить блюдо</b></a></li>
+
+            </ul>
+            <a class="btn btn-warning" role="button" href="/logout" style="background: none;color: #F6C343;--bs-btn-border-color: none;font-size: 21px">Выход</a>
+        </div>
+    </div>
+</nav>

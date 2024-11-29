@@ -1,0 +1,43 @@
+.about {
+    font-size: 36px;
+}
+.about span {
+    background-color: white;
+}
+.mb-3 {
+    margin-right: 1%;
+}
+.input-group span {
+    width: 30%;
+    text-align: center;
+    background: #EAECEF;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.input-group input {
+    border: 1px solid #ced4da;
+    width:70%;
+    font-weight: bold;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#img2 {
+    border: 1px solid #ced4da;
+    color:#4e5d78;
+    font-weight: bold;
+    border-radius: 10px;
+}
+#cat1 {
+    border: 1px solid #ced4da;
+    width:70%;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.btn-light {
+    --bs-btn-bg: #DDA450;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #DDA450;
+    margin-top: 2rem;
+}

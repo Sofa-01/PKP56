@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Пользователи</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/users.css">
+<body style="background: white top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <center>
+            <div class="about::before">
+                <div class="about">
+                    <span><b>Пользователи</b></span>
+                </div>
+            </div>
+        </center>
+        <div class="p-2" style="color: black">
+            <form th:unless="${u.id == user.id}" th:each="u : ${users}" th:action="'/users/edit/' + ${u.id}"
+                  style="margin-bottom: 10px;" method="post">
+                <div class="row mx-auto">
+                    <div class="col"><input class="form-control" type="text" readonly th:value="${u.username}"></div>
+                    <div class="col-auto">
+                        <select class="form-select" required name="role">
+                            <option th:each="r : ${roles}" th:value="${r}" th:label="${r.name}"
+                                    th:selected="${r == u.role}"></option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-light" type="submit">Обновить</button>
+                    </div>
+                    <div class="col-auto"><a class="btn btn-danger" role="button" th:href="'/users/delete/' + ${u.id}">Удалить</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>Slide & Dice</p>
+    </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

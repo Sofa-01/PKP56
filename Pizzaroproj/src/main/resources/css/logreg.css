@@ -1,0 +1,56 @@
+.container img {
+    height: 80px;
+    width: auto;
+    margin: 20px 10px 0px 0px;
+    position: relative;
+}
+.container h1 {
+    color: #DDA450;
+}
+.py-5 {
+    height: 80%;
+}
+.login-block {
+    font-size: 36px;
+    color: #F6C343;
+}
+.login-block p {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+.col-8 {
+    width: 50%;
+}
+.col-8 form {
+    background-color: #fee2b94f;
+}
+#coll1 {
+    max-width: 70%;
+    text-align: left;
+    margin-top:1.5rem;
+}
+#coll2 {
+    max-width: 70%;
+    margin-right:11%;
+    margin-top:2%;
+    text-align: left;
+}
+.coll .btn-warning {
+    min-width: 27%;
+    --bs-btn-bg: #DDA450;
+    --bs-btn-border-color:#fff;
+    border-radius:1rem;
+    --bs-btn-hover-border-color:#fff;
+    --bs-btn-color:#fff;
+    --bs-btn-hover-bg: #DDA450;
+    --bs-btn-hover-color: black;
+}
+.coll .btn-light {
+    min-width: 15%;
+    margin-left: 3%;
+    background: none;
+    color:#F6C343;
+    --bs-btn-hover-bg: #c4c5c600;
+    --bs-btn-hover-border-color: #c4c5c600;
+    font-size: 20px;
+}

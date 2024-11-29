@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>История заказов</title>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+        }
+        .map-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/orderings.css">
+<body style="background: white top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <center>
+            <div class="about::before">
+                <div class="about">
+                    <span><b>Мои заказы</b></span>
+                </div>
+            </div><br>
+        </center>
+        <!-- Секция заказов -->
+        <div th:if="${user.details.size() > 0}" class="p-2">
+            <div class="row mx-auto">
+                <div class="col">
+                    <p class="leada">Корзина</p>
+                </div>
+                <div class="col-auto"><a class="btn btn-danger invisible" role="button">Убрать</a></div>
+            </div>
+            <div th:each="d : ${user.details}" class="row mx-auto align-items-center">
+                <div class="col d-xl-flex align-items-xl-center">
+                    <p th:text="${d.product.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end align-items-xl-center">
+                    <p th:text="${'Количество: ' + d.quantity}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end align-items-xl-center" style="color: #ED6C30">
+                    <p th:text="${d.price} + 'p.'"></p>
+                </div>
+                <div class="col-auto"><a class="btn btn-dark" role="button"
+                                         th:href="'/details/delete/' + ${d.id}" >Сбросить</a></div>
+            </div>
+            <div class="row mx-auto">
+                <div class="col">
+                    <form action="/orderings/add" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <select name="paymentType" required class="form-control">
+                                    <option th:each="p : ${paymentTypes}" th:value="${p}" th:label="${p.getName()}"></option>
+                                </select>
+                            </div>
+                            <div class="col"><input class="form-control" type="text" name="discount" placeholder="Введите промо-код"></div>
+                            <div class="col-auto">
+                                <button class="btn btn-warning" type="submit" id="order-btn-${o.id}">Заказать</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Секция истории заказов -->
+        <div class="p-2" style="background: none;">
+            <div class="col" style="margin-left: 1%;">
+                <p class="leada">История заказов</p>
+            </div>
+            <div th:each="o : ${orderings}" class="row mx-auto align-items-center" id="stat1">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${o.status.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Цена: <span th:text="${o.price} + 'р.'" style="color: #ED6C30"></span></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Количество: <span th:text="${o.quantity}"></span></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Тип оплаты: <span th:text="${o.paymentType.getName()}"></span></p>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-light" role="button" th:href="'/details/' + ${o.id}">Детали</a>
+                </div>
+                <div th:if="${o.status.name() == 'CONFIRMED'}" class="col-auto">
+                    <a class="btn btn-warning" role="button" th:href="'/orderings/paid/' + ${o.id}" id="btn1">&nbsp;Оплатить</a>
+                </div>
+            </div>
+        </div>
+        <div class="about d-xl-flex justify-content-xl-center align-items-xl-center" style="margin-top: 3rem">
+            <span><b>Мы на карте</b></span>
+        </div>
+        <!-- Секция карты -->
+        <div class="map-section">
+            <h3>Мы на карте</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>Slide & Dice</p>
+    </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+<script>
+
+    // Инициализация карты
+    ymaps.ready(init);
+    function init() {
+        const map = new ymaps.Map("map", {
+            center: [55.7558, 37.6173], // Координаты центра карты (Москва)
+            zoom: 10
+        });
+
+        // Добавление метки
+        const myPlacemark = new ymaps.Placemark([55.7558, 37.6173], {
+            balloonContent: '<strong>Мы здесь!</strong><br>Адрес пиццерии'
+        }, {
+            preset: 'islands#icon',
+            iconColor: '#ED6C30'
+        });
+
+        map.geoObjects.add(myPlacemark);
+
+        fetch('/api/locations')
+            .then(response => response.json())
+            .then(data => {
+                data.locations.forEach(location => {
+                    const placemark = new ymaps.Placemark([location.latitude, location.longitude], {
+                        balloonContent: `<strong>${location.name}</strong><br>${location.address}`
+                    });
+                    map.geoObjects.add(placemark);
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки меток:', error));
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.about {
+    font-size: 36px;
+}
+.about span {
+    background-color: white;
+}
+.btn-light {
+    --bs-btn-bg: #27d84c;
+    --bs-btn-border-color:#084720;
+    --bs-btn-hover-bg:#0bda35;
+    --bs-btn-hover-border-color:#0bda35;
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color:#000;
+}
+.btn-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color:#000;
+    border-radius: 10px;
+}
+.form-control {
+    border: none;
+    background: #d9d9d987;
+    font-weight: bold;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Меню</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/products.css">
+<body style="background: white top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+
+    <div class="container py-5">
+
+        <div class="row mb-3" id="row1">
+
+
+            <div class="col-auto"><a href="/products/PIZZA" class="btn btn-primary">Пиццы</a></div>
+            <div class="col-auto"><a href="/products/SOUP" class="btn btn-primary">Супы</a></div>
+            <div class="col-auto"><a href="/products/SOUSE" class="btn btn-primary">Соусы</a></div>
+            <div class="col-auto"><a href="/products/DRINK" class="btn btn-primary">Напитки</a></div>
+            <div class="col-auto"><a href="/products/SALAD" class="btn btn-primary">Салаты</a></div>
+
+        </div>
+        <form id="filterBlock" th:action="${'/products/' + category + '/filter'}" class="bg-dark1 rounded-5 p-3 mb-3">
+
+            <div class="row">
+                <div class="col">
+                    <input type="number" name="priceMin" min="0" step="0.01" class="form-control"
+                           placeholder="Минимальная цена" th:value="${priceMin}">
+                </div>
+                <div class="col">
+                    <input type="number" name="priceMax" min="0" step="0.01" class="form-control"
+                           placeholder="Максимальная цена" th:value="${priceMax}">
+                </div>
+                <div class="col">
+                    <input type="number" name="weightMin" min="0" step="1" class="form-control"
+                           placeholder="Минимальный вес" th:value="${weightMin}">
+                </div>
+                <div class="col">
+                    <input type="number" name="weightMax" min="0" step="1" class="form-control"
+                           placeholder="Максимальный вес" th:value="${weightMax}">
+                </div>
+                <div class="col" id="col1">
+                    <button type="submit" class="btn btn-light">Фильтрация</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div th:each="p : ${products}" class="col-4">
+                <br>
+                <form class="p-2" th:action="'/details/add/' + ${p.id}" method="post">
+                    <div class="col-12" id="imgcol">
+                        <img class=" shadow" th:src="'/img/' + ${p.photo}">
+                    </div>
+                    <div class="col-12 ml-3">
+                        <div class="col-12 text-center mb-3 text-break"><p class="lead" th:text="${p.name}"></p></div>
+                        <div class="col-12"><span th:text="${'Категория: ' + p.category.name}"></span></div>
+                        <div class="col-12"><span th:text="${'Цена: ' + p.price}"></span></div>
+                        <div class="col-12"><span th:text="${'Вес: ' + p.weight}"></span></div>
+                        <div th:unless="${p.structure.isEmpty()}" class="col-12 mb-2 text-break">
+                            <span class="" style="font-size: 14px;" th:text="${'Состав: ' + p.structure}"></span>
+                        </div>
+
+                        <div th:if="${role == 'CLIENT'}" class="col-12 mb-2" style="width: 75%">
+                            <input class="form-control" type="number" name="quantity" min="1" step="1" max="100" required placeholder="Количество">
+                        </div>
+                        <div th:if="${role == 'CLIENT'}" class="col-12" style="width: 75%">
+                            <button class="btn btn-warning w-100" type="submit">В мой заказ</button>
+                        </div>
+                        <div th:if="${role == 'MANAGER'}" class="col-12">
+                            <a class="btn btn-info mb-2" role="button" th:href="'/products/edit/' + ${p.id}">Редактирование</a>
+                                <a class="btn btn-danger mb-2" role="button" th:href="'/products/delete/' + ${p.id}">Х</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>Slide & Dice</p>
+    </div>
+</footer>
+<script>
+    function toggleFilter() {
+        var filterBlock = document.getElementById("filterBlock");
+        if (filterBlock.style.display === "none") {
+            filterBlock.style.display = "block";
+        } else {
+            filterBlock.style.display = "none";
+        }
+    }
+</script>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+
+</body>
+
+</html>

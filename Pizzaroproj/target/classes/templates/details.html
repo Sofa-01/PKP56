@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Детали заказа</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/orderings.css">
+<body style="background: white top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <center>
+            <div class="about::before">
+                <div class="about">
+                    <span><b>Детали заказа</b></span>
+                </div>
+            </div>
+        </center>
+        <div class="p-2">
+            <div class="row mx-auto" style="max-height: 2rem">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p class="lead" th:text="${'Дата и время заказа: ' + ordering.date}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:unless="${ordering.dateStart.isEmpty()}" class="lead"
+                       th:text="${'Начали готовить: ' + ordering.dateStart}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:unless="${ordering.dateFinish.isEmpty()}" class="lead"
+                       th:text="${'Готово: ' + ordering.dateFinish}"></p>
+                </div>
+            </div>
+
+            <div th:each="d : ${ordering.details}" class="row mx-auto">
+                <div class="col d-xl-flex align-items-xl-center">
+                    <p th:text="${d.product.name}" style="margin-left: 1.5rem;"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${'Количество: ' + d.quantity}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center" style="color: #ED6C30">
+                    <p th:text="${d.price + 'p.'}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>Slide & Dice</p>
+    </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

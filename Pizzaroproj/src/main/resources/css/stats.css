@@ -1,0 +1,39 @@
+.about {
+    font-size: 36px;
+}
+.about span {
+    background-color: white;
+}
+#topQuantity, #topPrice {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.lead {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ED6C30;
+}
+#row1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color: #eaecefc7;
+    color:black;
+    border: none;
+    box-shadow: -4px 5px 5px 0px #8080807a;
+    min-height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-light {
+    --bs-btn-bg: #F8F9FA;
+    border-radius: 10px;
+    --bs-btn-border-color: #A2A6AB;
+    --bs-btn-color: #A2A6AB;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #47474d;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Заказы клиентов</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/apps_stats.css">
+<body style="background: white top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <center>
+            <div class="about::before" style="margin-bottom: 2rem">
+                <div class="about" style="font-size: 45px">
+                    <span style="background-color: white;"><b>Заказы клиентов</b></span>
+                </div>
+            </div>
+        </center>
+        <div class="p-2">
+            <div th:each="o : ${orderings}" class="row mx-auto">
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p th:text="${o.status.name}"></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Цена: <span th:text="${o.price}"></span></p>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <p>Количество: <span th:text="${o.quantity}"></span></p>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-light" role="button" th:href="'/details/' + ${o.id}">Детали</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer" style="height: 8.5%;position: relative;">
+    <div class="container">
+        <p style="color: #DDA450">Slide & Dice</p>
+    </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>

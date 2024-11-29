@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru" style="--bs-body-bg: #003f54;" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Редактировать</title>
+</head>
+<head th:insert="blocks/head :: head"></head>
+<link rel="stylesheet" href="/css/product_add.css">
+<body style="background: white top / cover;">
+<div th:insert="blocks/nav :: nav"></div>
+<section class="py-5">
+    <div class="container py-5">
+        <center>
+            <div class="about::before">
+                <div class="about">
+                    <span><b>Редактировать</b></span>
+                </div>
+            </div>
+        </center>
+        <form th:action="'/products/edit/' + ${product.id}" method="post" enctype="multipart/form-data">
+            <div class="row justify-content-center">
+                <div class="col-6 mb-3">
+                    <div class="input-group">
+            <span class="input-group-text">Название</span>
+                        <input class="form-control" type="text" name="name" placeholder="Название"
+                               th:value="${product.name}" required>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="input-group">
+                    <span class="input-group-text">Цена</span>
+                        <input class="form-control" type="number" name="price" min="0.01" step="0.01" max="100"
+                               placeholder="Цена" th:value="${product.price}" required>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="input-group">
+            <span class="input-group-text">Вес</span>
+                        <input class="form-control" type="number" name="weight" min="1" step="1" max="1000"
+                               placeholder="Вес" required th:value="${product.weight}">
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="input-group">
+            <span class="input-group-text">Состав</span>
+                        <input class="form-control" type="text" name="structure" placeholder="Состав"
+                               th:value="${product.structure}" >
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <input class="form-control" type="file" accept="image/*" name="photo" id="img2">
+                </div>
+                <div class="col-6 mb-3">
+                    <select name="category" class="form-select" required id="cat1">
+                        <option th:each="c : ${categories}" th:value="${c}" th:label="${c.name}"
+                                th:selected="${c == product.category}"></option>
+                    </select>
+                </div>
+                <div class="col-6 d-xl-flex justify-content-xl-center align-items-xl-center">
+                    <button class="btn btn-light" type="submit">Обновить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <p>Slide & Dice</p>
+    </div>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bold-and-dark.js"></script>
+</body>
+
+</html>
+
+
